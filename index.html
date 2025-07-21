@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>iBuy Demo</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Блок з відео: висота 100vh, не fixed */
+    .video-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: black;
+    }
+
+    /* Відео iframe повністю розтягуємо по батьку */
+    .video-section iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120vw;
+      height: 120vh;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Темна накладка */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+
+    /* Меню */
+    .nav {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      padding: 15px 30px;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .nav-left img {
+      height: 40px;
+    }
+
+    .nav-right {
+      margin-right: 110px; /* зсув меню трохи вліво */
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .nav-right span {
+      cursor: pointer;
+      padding: 8px 14px;
+      border-radius: 6px;
+      background: rgba(255 255 255 / 0.15);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      user-select: none;
+    }
+
+    .nav-right span:hover {
+      background: #00aaff;
+      color: white;
+    }
+
+    .nav-right span:last-child {
+      background: #00aaff;
+      padding: 8px 16px;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgb(0 170 255 / 0.6);
+    }
+
+    .nav-right span:last-child:hover {
+      background: #008ecc;
+      box-shadow: 0 4px 12px rgb(0 140 204 / 0.8);
+    }
+
+    /* Кнопка */
+    .button-container {
+      position: absolute;
+      bottom: 60px;
+      width: 100%;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .btn {
+      background-color: #00aaff;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #008ecc;
+    }
+
+    /* Блок брендів */
+    .brands-section {
+      position: relative;
+      background: #fff;
+      padding: 40px 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    .brands-section h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    .slider-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider-track {
+      display: flex;
+      animation: scroll 30s linear infinite;
+    }
+
+    .brand-box {
+      flex: 0 0 auto;
+      margin: 0 20px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      padding: 15px 30px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      height: 100px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+
+    .brand-box img {
+      max-height: 60px;
+      max-width: 100%;
+    }
+
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 768px) {
+  .video-section iframe {
+    width: 340vw;
+    height: 220vh;
+  }
+}
+
+
+
+  </style>
+</head>
+<body>
+
+    <div class="video-section">
+      <iframe
+        src="https://www.youtube.com/embed/fUphIFNXLm0?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=fUphIFNXLm0&fs=0&disablekb=1"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+      ></iframe>
+
+    <div class="overlay"></div>
+
+    <div class="nav">
+  <div class="nav-left">
+    <img src="your-logo.png" alt="iBuy Logo" />
+  </div>
+  
+  <div class="burger" onclick="toggleMenu()">☰</div>
+
+  <div class="nav-right" id="navMenu">
+    <span>HOME</span>
+    <span>ABOUT US</span>
+    <span>GOVERNMENT & EDUCATION</span>
+    <span>CAREERS</span>
+    <span>CONTACT</span>
+  </div>
+</div>
+
+<style>
+ .burger {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 1000;
+  color: white;
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  user-select: none;
+}
+
+/* Мобильное меню */
+@media (max-width: 768px) {
+  .burger {
+    display: block;
+  }
+
+  .nav-right {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    width: auto;
+    background: transparent; /* без фона */
+    padding: 10px 15px;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    z-index: 999;
+  }
+
+  .nav-right span {
+    color: white;          /* цвет текста */
+    font-size: 18px;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+
+  .nav-right span:hover {
+    color: #f0a500;        /* аккуратный цвет при наведении */
+  }
+
+  .nav-right.active {
+    display: flex;
+  }
+}
+
+</style>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("navMenu");
+    menu.classList.toggle("active");
+  }
+</script>
+
+
+
+
+
+
+
+    <div class="button-container">
+      <a href="https://www.youtube.com/watch?v=fUphIFNXLm0&t=70s" target="_blank" class="btn">
+        WATCH OUR VIDEO
+      </a>
+    </div>
+  </div>
+
+  <section class="brands-section">
+    <h2>Our Brands</h2>
+    <div class="slider-container">
+      <div class="slider-track">
+        <div class="brand-box"><img src="img/wd.png" alt="WD"></div>
+        <div class="brand-box"><img src="img/sigma.png" alt="Sigma"></div>
+        <div class="brand-box"><img src="img/plantronics.png" alt="Plantronics"></div>
+        <div class="brand-box"><img src="img/apple.png" alt="Apple"></div>
+        <div class="brand-box"><img src="img/microsoft.png" alt="Microsoft"></div>
+        <div class="brand-box"><img src="img/dell.png" alt="Dell"></div>
+
+        <div class="brand-box"><img src="img/wd.png" alt="WD"></div>
+        <div class="brand-box"><img src="img/sigma.png" alt="Sigma"></div>
+        <div class="brand-box"><img src="img/plantronics.png" alt="Plantronics"></div>
+        <div class="brand-box"><img src="img/apple.png" alt="Apple"></div>
+        <div class="brand-box"><img src="img/microsoft.png" alt="Microsoft"></div>
+        <div class="brand-box"><img src="img/dell.png" alt="Dell"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="advantage-section">
+  <div class="advantage-container">
+    <div class="advantage-text">
+      <h2>The iBuy Advantage</h2>
+      <p>Our dedicated sales specialists are the most knowledgeable and professional in the industry. We will help you get the right products and provide you with exceptional service.</p>
+      <button>CONTACT US</button>
+    </div>
+    <div class="advantage-grid">
+      <div class="advantage-item">
+        <i class="fa-solid fa-box fa-2x"></i>
+        <h3>Products</h3>
+        <p>Over 300 brands and 100,000 models</p>
+      </div>
+      <div class="advantage-item">
+        <i class="fa-solid fa-hand-holding-dollar fa-2x"></i>
+        <h3>Competitive Pricing</h3>
+        <p>The most competitive pricing available</p>
+      </div>
+      <div class="advantage-item">
+        <i class="fa-solid fa-user-tie fa-2x"></i>
+        <h3>Product Experts</h3>
+        <p>The most knowledgeable product experts in the industry</p>
+      </div>
+      <div class="advantage-item">
+        <i class="fa-solid fa-truck-plane fa-2x"></i>
+        <h3>Distribution</h3>
+        <p>Global Logistics spanning over 80 countries</p>
+      </div>
+      <div class="advantage-item">
+        <i class="fa-solid fa-headset fa-2x"></i>
+        <h3>Customer Service</h3>
+        <p>Outstanding customer service</p>
+      </div>
+      <div class="advantage-item">
+        <i class="fa-solid fa-language fa-2x"></i>
+        <h3>Multilingual</h3>
+        <p>Our sales teams are fluent in English, Spanish, Portuguese, Hebrew, Arabic, and Russian</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .advantage-section {
+  background: #16a9e0;
+  color: white;
+  padding: 60px 20px;
+}
+
+.advantage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.advantage-text {
+  flex: 1 1 300px;
+}
+
+.advantage-text h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.advantage-text p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.advantage-text button {
+  background: white;
+  color: #16a9e0;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.advantage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  flex: 2 1 600px;
+}
+
+.advantage-item {
+  background: white;
+  color: #333;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.advantage-item i {
+  color: #16a9e0;
+  margin-bottom: 15px;
+}
+
+
+.advantage-item h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.advantage-item p {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+</style>
+
+<section class="mission-section">
+  <div class="mission-container">
+    <div class="mission-header">
+      <h2>Our Mission</h2>
+      <p>iBuy aspires to become the premier source for all your electronic merchandise.</p>
+      <button class="mission-button">CONTACT US</button>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-card">
+        <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+        <h3>Company Growth</h3>
+        <p>iBuy aims to become the largest and most reliable global distributor in the electronics industry.</p>
+      </div>
+      <div class="mission-card">
+        <div class="icon-box"><i class="fas fa-users"></i></div>
+        <h3>Professional Team</h3>
+        <p>The goal is accomplished with a highly knowledgeable team with years of experience in the electronics industry.</p>
+      </div>
+      <div class="mission-card">
+        <div class="icon-box"><i class="fas fa-headset"></i></div>
+        <h3>Expert Support</h3>
+        <p>At iBuy, customer satisfaction is our top priority. We are constantly making improvements to meet our consumer’s needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mission-section {
+    background: #fff;
+    color: #000;
+    padding: 60px 20px;
+  }
+
+  .mission-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .mission-header h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .mission-header p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #444;
+  }
+
+  .mission-button {
+    background: #16a9e0;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 50px;
+  }
+
+  .mission-button:hover {
+    background: #008ecc;
+  }
+
+  .mission-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .mission-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 25px 20px;
+    flex: 1 1 30%;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    text-align: left;
+    min-width: 280px;
+  }
+
+  .icon-box {
+    background: #16a9e0;
+    color: white;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 26px;
+  }
+
+  .mission-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .mission-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+  }
+</style>
+<section class="contact-hero">
+  <div class="contact-overlay">
+    <div class="contact-content">
+      <small>IBUY</small>
+      <h2>Let's Talk About<br>Your Needs</h2>
+      <a href="#contact" class="contact-btn">CONTACT US</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-hero {
+    background: url('img/gg1.png') no-repeat center center;
+    background-size: cover;
+    min-height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+   /* Затемнение через псевдоэлемент */
+  .contact-hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+   .contact-content {
+    position: relative;
+    z-index: 2; /* Поверх затемнения */
+    text-align: center;
+    color: #fff;
+    padding: 40px 20px;
+  }
+
+  .contact-content small {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    letter-spacing: 1px;
+  }
+
+  .contact-content h2 {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 25px;
+  }
+
+  .contact-btn {
+    background-color: #16a9e0;
+    color: white;
+    padding: 12px 26px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .contact-btn:hover {
+    background-color: #008ecc;
+  }
+
+  @media (max-width: 768px) {
+    .contact-content h2 {
+      font-size: 28px;
+    }
+  }
+</style>
+
+<section class="testimonials-section">
+  <div class="testimonials-wrapper">
+    <!-- Левая часть -->
+    <div class="testimonials-left">
+      <h2>Our Testimonials</h2>
+      <p>
+        Our dedicated sales specialists are the most knowledgeable and professional in the industry.
+        We will help you get the right products and provide you with exceptional service.
+      </p>
+      <a href="#contact" class="testimonials-btn">CONTACT US</a>
+    </div>
+
+    <!-- Правая часть -->
+    <div class="testimonials-right">
+      <div class="testimonial-slider">
+        <!-- Все слайды -->
+        <div class="testimonial-slide active">
+          <div class="testimonial-card">
+            <p>"iBuy was extremely helpful and professional..."</p>
+            <strong>Prakeesh L.</strong><br><span>Business Owner</span>
+          </div>
+          <div class="testimonial-card">
+            <p>"It was a pleasure to work with iBuy..."</p>
+            <strong>Mohammed A.</strong><br><span>Business Owner</span>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <p>"Their pricing was unbeatable and the delivery was fast."</p>
+            <strong>Samantha T.</strong><br><span>Procurement Manager</span>
+          </div>
+          <div class="testimonial-card">
+            <p>"I had a technical question and they walked me through everything."</p>
+            <strong>David K.</strong><br><span>Operations Lead</span>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <p>"Reliable team, great support, definitely using again."</p>
+            <strong>Linda M.</strong><br><span>IT Director</span>
+          </div>
+          <div class="testimonial-card">
+            <p>"Helped us save money and time — exactly what we needed."</p>
+            <strong>Mark P.</strong><br><span>Warehouse Manager</span>
+          </div>
+        </div>
+
+        <!-- Навигация -->
+        <div class="testimonial-nav">
+          <button class="prev-btn">&#10094;</button>
+          <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <button class="next-btn">&#10095;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<style>
+.testimonials-section {
+  padding: 60px 20px;
+  background: #fff;
+}
+
+.testimonials-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.testimonials-left {
+  flex: 1 1 300px;
+}
+
+.testimonials-left h2 {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.testimonials-left p {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.testimonials-btn {
+  background: #16a9e0;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.testimonials-right {
+  flex: 2 1 600px;
+}
+
+.testimonial-slider {
+  position: relative;
+}
+
+.testimonial-slide {
+  display: none;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.testimonial-slide.active {
+  display: flex;
+}
+
+.testimonial-card {
+  flex: 1 1 calc(50% - 10px);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 25px;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+}
+
+.testimonial-card p {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.testimonial-card strong {
+  font-weight: 600;
+}
+
+.testimonial-card span {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Навигация */
+.testimonial-nav {
+  margin-top: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.testimonial-nav button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.dots .dot {
+  height: 10px;
+  width: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dots .dot.active {
+  background-color: #16a9e0;
+}
+
+.testimonials-slider {
+  position: relative;
+  width: 100%;
+  min-height: 350px; /* фиксируем минимальную высоту */
+  overflow: hidden;
+}
+
+.testimonial-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease;
+}
+
+.testimonial-slide.active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+}
+
+
+@media (max-width: 768px) {
+  .testimonial-slide {
+    flex-direction: column;
+  }
+
+  .testimonial-card {
+    flex: 1 1 100%;
+  }
+}
+</style>
+
+
+
+<script>
+const slides = document.querySelectorAll(".testimonial-slide");
+const dots = document.querySelectorAll(".dot");
+let currentSlide = 0;
+let interval;
+
+// Показывает слайд по индексу
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.toggle("active", i === index);
+    dots[i].classList.toggle("active", i === index);
+  });
+  currentSlide = index;
+}
+
+// Следующий слайд
+function nextSlide() {
+  const next = (currentSlide + 1) % slides.length;
+  showSlide(next);
+}
+
+// Предыдущий слайд
+function prevSlide() {
+  const prev = (currentSlide - 1 + slides.length) % slides.length;
+  showSlide(prev);
+}
+
+// Слушатели
+document.querySelector(".next-btn").addEventListener("click", () => {
+  nextSlide();
+  resetInterval();
+});
+
+document.querySelector(".prev-btn").addEventListener("click", () => {
+  prevSlide();
+  resetInterval();
+});
+
+dots.forEach((dot, i) => {
+  dot.addEventListener("click", () => {
+    showSlide(i);
+    resetInterval();
+  });
+});
+
+// Авто переключение
+function startAutoSlide() {
+  interval = setInterval(nextSlide, 15000); // каждые 15 секунд
+}
+
+function resetInterval() {
+  clearInterval(interval);
+  startAutoSlide();
+}
+
+// Инициализация
+showSlide(0);
+startAutoSlide();
+</script>
+
+<section class="contact-locations">
+  <div class="location-box">
+    <div class="icon"><i class="fas fa-phone"></i></div>
+    <div>
+      <strong>NEW JERSEY</strong><br>
+      (732) 357-1888
+    </div>
+  </div>
+  <div class="location-box">
+    <div class="icon"><i class="fas fa-phone"></i></div>
+    <div>
+      <strong>MIAMI</strong><br>
+      (305) 717-0036
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <div>
+      <h4>ABOUT</h4>
+      <p><a href="#">About Us</a></p>
+      <p><a href="#">Privacy Policies</a></p>
+    </div>
+    <div>
+      <h4>PRODUCTS & SERVICES</h4>
+      <p><a href="#">Government/Education</a></p>
+    </div>
+    <div>
+      <h4>CONTACT</h4>
+      <p><a href="#">Contact Us</a></p>
+      <p><a href="#">Subscribe</a></p>
+    </div>
+    <div>
+      <h4>EMAIL</h4>
+      <p><a href="mailto:info@ibuy.com">info@ibuy.com</a></p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="footer-bottom">
+    &copy; Copyright 2010 – 2023 iBuy. All Rights Reserved
+  </div>
+</footer>
+
+
+<style>
+  .contact-locations {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+  flex-wrap: wrap;
+}
+
+.location-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+}
+
+.location-box .icon {
+  background-color: #00aaff;
+  color: #fff;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 18px;
+}
+
+.site-footer {
+  background: #f9f9f9;
+  color: #333;
+  padding: 30px 20px 10px;
+  font-size: 14px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 40px;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.footer-links h4 {
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.footer-links a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  padding-top: 10px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 0;
+}
+
+</style>
+
+</body>
+</html>
