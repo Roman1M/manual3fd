@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <title>iBuy Demo</title>
+  <title>CARPAINT MB</title>
   <style>
     html, body {
       margin: 0;
@@ -22,6 +22,7 @@
       height: 100vh;
       overflow: hidden;
       background: black;
+      
     }
 
    
@@ -48,18 +49,40 @@
     }
 
     
-    .nav {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      padding: 15px 30px;
-      color: white;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 2;
-    }
+   .nav {
+  position: fixed !important; /* добавь !important на время теста */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px 30px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 9999;
+}
+
+
+/* Центрированный текст поверх видео */
+.center-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 36px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  z-index: 2;
+  text-align: center;
+  padding: 0 20px;
+  user-select: none;
+}
+
 
     .nav-left img {
       height: 40px;
@@ -129,63 +152,79 @@
 
   
     .brands-section {
-      position: relative;
-      background: #fff;
-      padding: 40px 20px;
-      text-align: center;
-      color: #333;
-    }
+  position: relative;
+  background: #fff;
+  padding: 40px 20px;
+  text-align: center;
+  color: #333;
+  overflow: hidden; /* предотвращает появление горизонтальной полосы прокрутки */
+}
 
-    .brands-section h2 {
-      font-size: 28px;
-      margin-bottom: 30px;
-    }
+.brands-section h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
 
-    .slider-container {
-      overflow: hidden;
-      position: relative;
-    }
+.slider-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
 
-    .slider-track {
-      display: flex;
-      animation: scroll 30s linear infinite;
-    }
+.slider-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
 
-    .brand-box {
-      flex: 0 0 auto;
-      margin: 0 20px;
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      padding: 15px 30px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 180px;
-      height: 100px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.05);
-    }
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
-    .brand-box img {
-      max-height: 60px;
-      max-width: 100%;
-    }
+.brand-box {
+  flex: 0 0 auto;
+  margin: 0 20px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  padding: 15px 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  height: 100px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
 
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
-    }
+.brand-box img {
+  max-height: 60px;
+  max-width: 100%;
+}
 
-    @media (max-width: 768px) {
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .brand-box {
+    min-width: 140px;
+    height: 80px;
+    padding: 10px 20px;
+  }
+
+  .brands-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
   .video-section iframe {
     width: 340vw;
     height: 220vh;
   }
 }
+
 
 
 
@@ -196,18 +235,25 @@
 <body>
 
     <div class="video-section">
-      <iframe
-        src="https://www.youtube.com/embed/fUphIFNXLm0?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=fUphIFNXLm0&fs=0&disablekb=1"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-      ></iframe>
+     <iframe
+    src="https://www.youtube.com/embed/QgJbnUUIa1M?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&rel=0&loop=1&playlist=QgJbnUUIa1M&fs=0&disablekb=1"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+></iframe>
+
+
 
     <div class="overlay"></div>
 
+    <div class="center-text">
+  CARPAINT MB - JŪSŲ PATIKIMAS TIEKĖJAS
+</div>
+
+
     <div class="nav">
   <div class="nav-left">
-    <img src="your-logo.png" alt="iBuy Logo" />
+    <img src="your-logo.png" alt="CARPAINT MB" />
   </div>
   
   <div class="burger" onclick="toggleMenu()">☰</div>
@@ -216,7 +262,7 @@
     
    <select id="languageSelect"
       >
-        <option value="lv"selected>LV</option>
+        <option value="lt"selected>LT</option>
         <option value="en">EN</option>
         <option value="ru">RU</option>
       </select>
@@ -228,7 +274,7 @@
 
     // Определяем URL для каждого языка
     const urlMap = {
-      lv: 'index.html',
+      lt: 'index.html',
       en: 'index-en.html',
       ru: 'index-ru.html',
     };
@@ -246,16 +292,31 @@
   <a href="#about">APIE MUS</a>
   <a href="#reviews">ATSAKYMAI</a>
   <a href="#contact">KONTAKTAI</a>
+  <a href="#contact1" id="copyEmail" style="cursor: pointer;">office@carpaint.lt</a>
+
 
   <div class="mobile-languageSelect">
     <select id="mobileLang">
-      <option value="lv" selected>LV</option>
+      <option value="lt" selected>LT</option>
       <option value="en">EN</option>
       <option value="ru">RU</option>
     </select>
   </div>
 </div>
 
+
+<script>
+  document.getElementById('copyEmail').addEventListener('click', function(event) {
+  event.preventDefault(); // отменяем переход по ссылке
+
+  const email = this.textContent;
+  navigator.clipboard.writeText(email).catch(() => {
+    // Если не удалось скопировать — можно обработать ошибку тут или ничего не делать
+  });
+});
+
+
+</script>
 
   <style>
     /* Скрываем на десктопе, показываем на мобильных */
@@ -287,7 +348,7 @@
   document.getElementById('mobileLang')?.addEventListener('change', function () {
     const lang = this.value;
     const urlMap = {
-      lv: 'index.html',
+      lt: 'index.html',
       en: 'index-en.html',
       ru: 'index-ru.html',
     };
@@ -444,35 +505,56 @@
 
 
     <div class="button-container">
-      <a href="https://www.youtube.com/watch?v=fUphIFNXLm0&t=70s" target="_blank" class="btn">
-        WATCH OUR VIDEO
+      <a href="https://youtu.be/QgJbnUUIa1M" target="_blank" class="btn">
+        ŽIŪRĖKITE MŪSŲ VAIZDO
       </a>
     </div>
   </div>
 
   <section id="brands" class="brands-section">
-  <h2>Our Brands</h2>
+  <h2>Mūsų prekės ženklai</h2>
   <div class="slider-container">
     <div class="slider-track">
+      <!-- оригинальные -->
       <div class="brand-box"><img src="brands/smeg.png" alt="SMEG"></div>
       <div class="brand-box"><img src="brands/tece.png" alt="TECE"></div>
       <div class="brand-box"><img src="brands/grohe.png" alt="GROHE"></div>
       <div class="brand-box"><img src="brands/miele.png" alt="MIELE"></div>
       <div class="brand-box"><img src="brands/bosch.png" alt="BOSCH"></div>
       <div class="brand-box"><img src="brands/siemens.png" alt="SIEMENS"></div>
-      <div class="brand-box"><img src="brands/axor.png" alt="AXOR"></div>
+      <div class="brand-box"><img src="brands/blum.png" alt="BLUM"></div>
       <div class="brand-box"><img src="brands/philips.png" alt="PHILIPS"></div>
+      <div class="brand-box"><img src="brands/dyson.png" alt="DYSON"></div>
+      <div class="brand-box"><img src="brands/apple.png" alt="APPLE"></div>
+      <div class="brand-box"><img src="brands/liebherr.png" alt="LIEBHERR"></div>
+      <div class="brand-box"><img src="brands/braun.png" alt="BRAUN"></div>
+
+      <!-- дубликаты -->
+      <div class="brand-box"><img src="brands/smeg.png" alt="SMEG"></div>
+      <div class="brand-box"><img src="brands/tece.png" alt="TECE"></div>
+      <div class="brand-box"><img src="brands/grohe.png" alt="GROHE"></div>
+      <div class="brand-box"><img src="brands/miele.png" alt="MIELE"></div>
+      <div class="brand-box"><img src="brands/bosch.png" alt="BOSCH"></div>
+      <div class="brand-box"><img src="brands/siemens.png" alt="SIEMENS"></div>
+      <div class="brand-box"><img src="brands/blum.png" alt="BLUM"></div>
+      <div class="brand-box"><img src="brands/philips.png" alt="PHILIPS"></div>
+      <div class="brand-box"><img src="brands/dyson.png" alt="DYSON"></div>
+      <div class="brand-box"><img src="brands/apple.png" alt="APPLE"></div>
+      <div class="brand-box"><img src="brands/liebherr.png" alt="LIEBHERR"></div>
+      <div class="brand-box"><img src="brands/braun.png" alt="BRAUN"></div>
     </div>
   </div>
 </section>
+
+
 
   
 
   <section class="advantage-section">
   <div class="advantage-container">
     <div class="advantage-text">
-      <h2>Kodėl verta bendradarbiauti su EUROSTAR</h2>
-      <p>Prisijunkite prie EUROSTAR ir atraskite, kaip lengva ir pelninga gali būti didmeninė partnerystė. Siūlome individualius sprendimus, efektyvią logistiką ir garantuotą produktų kokybę jūsų verslo augimui.</p>
+      <h2>Kodėl verta bendradarbiauti su CARPAINT MB</h2>
+      <p>Prisijunkite prie CARPAINT MB ir atraskite, kaip lengva ir pelninga gali būti didmeninė partnerystė. Siūlome individualius sprendimus, efektyvią logistiką ir garantuotą produktų kokybę jūsų verslo augimui.</p>
       <button class="mission-button" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">
    SUSISIEKITE SU MUMIS
 </button>
@@ -705,7 +787,7 @@
 <section class="contact-hero">
   <div class="contact-overlay">
     <div class="contact-content">
-      <small>EUROSTAR</small>
+      <small>CARPAINT MB</small>
       <h2>Pakalbėkime apie<br>Jūsų poreikiai</h2>
       <a href="#contact" class="contact-btn">SUSISIEKITE SU MUMIS</a>
     </div>
@@ -797,11 +879,11 @@
        
         <div class="testimonial-slide active">
           <div class="testimonial-card">
-            <p>„iBuy buvo labai naudinga ir profesionali...“</p>
+            <p>„CARPAINT MB buvo labai naudinga ir profesionali...“</p>
             <strong>Prakeesh L.</strong><br><span>Verslo savininkas</span>
           </div>
           <div class="testimonial-card">
-            <p>„Buvo malonu dirbti su „iBuy“...“</p>
+            <p>„Buvo malonu dirbti su „CARPAINT MB“...“</p>
             <strong>Mohammed A.</strong><br><span>Verslo savininkas</span>
           </div>
         </div>
@@ -1058,21 +1140,52 @@ startAutoSlide();
 </script>
 
 <section id="contact" class="contact-locations">
+  <!-- Email 1 -->
   <div class="location-box">
-    <div class="icon"><i class="fas fa-phone"></i></div>
+    <div class="icon"><i class="fas fa-envelope"></i></div>
     <div>
-      <strong>NEW JERSEY</strong><br>
-      (732) 357-1888
+      <strong>BIURAS</strong><br>
+      <a href="#" onclick="copyToClipboard('office@carpaint.lt'); return false;">office@carpaint.lt</a>
     </div>
   </div>
+
+  <!-- Email 2 -->
   <div class="location-box">
-    <div class="icon"><i class="fas fa-phone"></i></div>
+    <div class="icon"><i class="fas fa-envelope"></i></div>
     <div>
-      <strong>MIAMI</strong><br>
-      (305) 717-0036
+      <strong>PARDUOTUVĖ</strong><br>
+      <a href="#" onclick="copyToClipboard('sale@carpaint.lt'); return false;">sale@carpaint.lt</a>
     </div>
   </div>
+
+  <!-- Email 3 -->
+  <div class="location-box">
+    <div class="icon"><i class="fas fa-envelope"></i></div>
+    <div>
+      <strong>EKSPORTAS</strong><br>
+      <a href="#" onclick="copyToClipboard('export@carpaint.lt'); return false;">export@carpaint.lt</a>
+    </div>
+  </div>
+
+  <!-- Only phone -->
+  <div class="location-box">
+  <div class="icon"><i class="fas fa-phone"></i></div>
+  <div>
+    <strong>TELEFONAS</strong><br>
+    <a href="#" onclick="event.preventDefault();">+37061237079</a>
+  </div>
+</div>
 </section>
+
+
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      // Можно добавить всплывающую подсказку, если хочешь
+      console.log(text + ' copied');
+    });
+  }
+</script> 
 
 <hr class="divider">
 
@@ -1093,17 +1206,34 @@ startAutoSlide();
       <p><a href="#">Prenumeruoti</a></p>
     </div>
     <div>
-      <h4>EMAIL</h4>
-      <p><a href="mailto:info@ibuy.com">info@ibuy.com</a></p>
+      <h4>ĮMONĖS DUOMENYS</h4>
+      <p>CARPAINT MB</p>
+      <p>Direktorius: Nerijus Černis</p>
+      <p>Reg. Nr.: 306623249</p>
+      <p>PVM: LT100016395611</p>
+      <p>EORI: LT306623249</p>
+      <p>Tel.: +37061237079</p>
+      <p>Adresas: Topolių g. 2-25, LT-51370, Kaunas</p>
+      <p>El. paštas: <a href="#" onclick="copyToClipboard('office@carpaint.lt'); return false;">office@carpaint.lt</a></p>
     </div>
   </div>
 
   <hr class="divider">
 
   <div class="footer-bottom">
-    &copy; Autorinės teisės 2010–2023 iBuy. Visos teisės saugomos.
+    &copy; Autorinės teisės 2025 CARPAINT MB. Visos teisės saugomos.
   </div>
 </footer>
+
+
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      console.log(text + ' copied');
+    });
+  }
+</script>
+
 
 
 <style>
